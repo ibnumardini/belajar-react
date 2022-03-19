@@ -5,6 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Beljar React.js</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@17/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+    ></script>
   </head>
   <body>
     <div id="root"></div>
@@ -12,12 +20,12 @@
     <script>
       const root = document.querySelector("#root");
 
-      const element = document.createElement("h1");
+      const element = React.createElement("h1", {
+        children: "Hello from React!",
+        className: "heading-1",
+      });
 
-      element.textContent = "Hello from JS";
-      element.className = "h1";
-
-      root.appendChild(element);
+      ReactDOM.render(element, root);
     </script>
   </body>
 </html>
