@@ -20,9 +20,17 @@
     <script>
       const root = document.querySelector("#root");
 
-      const element = React.createElement("h1", {
-        children: "Hello from React!",
-        className: "heading-1",
+      const p = React.createElement("p", {
+        children: "ini adalah paragraf 1",
+      });
+
+      const p2 = React.createElement("p", {
+        children: "ini adalah paragraf 2",
+      });
+
+      // always use wrapper or use React.Fragment
+      const element = React.createElement(React.Fragment, {
+        children: [p, p2],
       });
 
       ReactDOM.render(element, root);
