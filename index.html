@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Beljar React.js</title>
+    <title>Belajar React.js</title>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script
       crossorigin
       src="https://unpkg.com/react@17/umd/react.development.js"
@@ -17,27 +18,15 @@
   <body>
     <div id="root"></div>
 
-    <script>
+    <script type="text/babel">
       const root = document.querySelector("#root");
 
-      const li1 = React.createElement("li", {
-        children: "Apple",
-      });
-
-      const li2 = React.createElement("li", {
-        children: "Banana",
-      });
-
-      const li3 = React.createElement("li", {
-        children: "Manggo",
-      });
-
-      const element = React.createElement(
-        "ul",
-        { className: "list" },
-        li1,
-        li2,
-        li3
+      const element = (
+        <ul>
+          <li className="test1">test</li>
+          <li className="test2">test</li>
+          <li className="test3">test</li>
+        </ul>
       );
 
       ReactDOM.render(element, root);
