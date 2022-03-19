@@ -20,18 +20,25 @@
     <script>
       const root = document.querySelector("#root");
 
-      const p = React.createElement("p", {
-        children: "ini adalah paragraf 1",
+      const li1 = React.createElement("li", {
+        children: "Apple",
       });
 
-      const p2 = React.createElement("p", {
-        children: "ini adalah paragraf 2",
+      const li2 = React.createElement("li", {
+        children: "Banana",
       });
 
-      // always use wrapper or use React.Fragment
-      const element = React.createElement(React.Fragment, {
-        children: [p, p2],
+      const li3 = React.createElement("li", {
+        children: "Manggo",
       });
+
+      const element = React.createElement(
+        "ul",
+        { className: "list" },
+        li1,
+        li2,
+        li3
+      );
 
       ReactDOM.render(element, root);
     </script>
