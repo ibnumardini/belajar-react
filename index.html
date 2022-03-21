@@ -21,17 +21,37 @@
     <script type="text/babel">
       const root = document.querySelector("#root");
 
-      // function upper(text) {
-      //   return text.toUpperCase();
+      // function halo(name) {
+      //   return <p>Halo <b>{name}</b></p>
       // }
 
-      // const name = "Fatkur";
+      // const element = (
+      //   <>
+      //     {halo('Cak Nopal')}
+      //     {halo('Mas Agus')}
+      //     {halo('Cik Fitri')}
+      //   </>
+      // )
 
-      // memanggil js expression di jsx dengan bracket {}
-      // const element = <h1>Test {upper(name)}</h1>;
+      function uppper(txt) {
+        return txt.toUpperCase();
+      }
 
-      // tag empty di jsx harus di tutp dengan />
-      const element = <img src="https://www.freepsdbazaar.com/wp-content/uploads/2020/06/sky-replace/sun-rise/sunrise-14-freepsdbazaar.jpg" />
+      function Halo(props) {
+        return (
+          <p>
+            Halo <b>{uppper(props.name)}</b>
+          </p>
+        );
+      }
+
+      const element = (
+        <>
+          <Halo name="budi" />
+          <Halo name="janah" />
+          <Halo name="Bentong" />
+        </>
+      );
 
       ReactDOM.render(element, root);
     </script>
