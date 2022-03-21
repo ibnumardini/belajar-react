@@ -21,39 +21,28 @@
     <script type="text/babel">
       const root = document.querySelector("#root");
 
-      // function halo(name) {
-      //   return <p>Halo <b>{name}</b></p>
-      // }
-
-      // const element = (
-      //   <>
-      //     {halo('Cak Nopal')}
-      //     {halo('Mas Agus')}
-      //     {halo('Cik Fitri')}
-      //   </>
-      // )
-
-      function uppper(txt) {
-        return txt.toUpperCase();
-      }
-
-      function Halo(props) {
+      function DateNow() {
         return (
           <p>
-            Halo <b>{uppper(props.name)}</b>
+            Jam Sekarang <b>{new Date().toLocaleTimeString()}</b>
           </p>
         );
       }
 
-      const element = (
-        <>
-          <Halo name="budi" />
-          <Halo name="janah" />
-          <Halo name="Bentong" />
-        </>
-      );
+      function tick() {
+        const element = (
+          <>
+            <DateNow />
+          </>
+        );
 
-      ReactDOM.render(element, root);
+        ReactDOM.render(element, root);
+      }
+
+      // render ulang setiap 1 detik
+      setInterval(() => {
+        tick();
+      }, 1000);
     </script>
   </body>
 </html>
