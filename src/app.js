@@ -1,24 +1,13 @@
 const root = document.querySelector("#root");
 
-function DateNow() {
-  return (
-    <p>
-      Jam Sekarang <b>{new Date().toLocaleTimeString()}</b>
-    </p>
-  );
-}
+const element = (
+  <div
+    style={{
+      width: 100,
+      height: 100,
+      backgroundColor: "red",
+    }}
+  ></div>
+);
 
-function tick() {
-  const element = (
-    <>
-      <DateNow />
-    </>
-  );
-
-  ReactDOM.render(element, root);
-}
-
-// render ulang setiap 1 detik
-setInterval(() => {
-  tick();
-}, 1000);
+ReactDOM.render(element, root);
