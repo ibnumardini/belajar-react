@@ -1,34 +1,40 @@
 const root = document.querySelector("#root");
 
-// ! state adalah data yang ada di react componet, yang apabila
-// ! data tersebut berubah maka komponent akan di render ulang
 const App = () => {
-  // const state = React.useState(1);
+  const [count, setCount] = React.useState(0);
 
-  // const count = state[0];
-  // const updateCount = state[1];
+  // ! akan di jalankan ketika component di render ulang
+  // ! parameter kedua pada useEffect adalah menampung state mana yang akan di watch
+  React.useEffect(
+    function () {
+      console.log(`exec`);
 
-  // * dengan cara destructuring array
-  const [count, setCount] = React.useState(1);
+      return function(){
+        // lifecycle: unmount
+        // di hapus dari memory
+        console.log(`component destroy`);
+      }
+    }
+    ,
+    [count]
+  );
+
+  /**
+   * jika tanpa param kedua maka jenis lifecycelnya adlaha did update
+   * jika di isi array kosong jenisnya did mount
+   */
 
   return (
     <>
-      <button
-        onClick={() => {
-          if (count == 0) return;
-          setCount(count - 1);
-        }}
-      >
-        -
-      </button>
-      <span>{count}</span>
+      <h1 id="judul">Hello gais</h1>
       <button
         onClick={() => {
           setCount(count + 1);
         }}
       >
-        +
+        Tambah
       </button>
+      <span> Nilai saat ini: {count}</span>
     </>
   );
 };
