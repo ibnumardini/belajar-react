@@ -9,13 +9,12 @@ const App = () => {
     function () {
       console.log(`exec`);
 
-      return function(){
+      return function () {
         // lifecycle: unmount
         // di hapus dari memory
         console.log(`component destroy`);
-      }
-    }
-    ,
+      };
+    },
     [count]
   );
 
