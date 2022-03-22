@@ -1,0 +1,6 @@
+# tools
+node_modules/
+yarn-error.log
+
+# compiled files
+public/assets/js/*
