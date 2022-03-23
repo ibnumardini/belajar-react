@@ -1,33 +1,22 @@
 const root = document.querySelector("#root");
 
+// react hooks, adalah fungsi2 yang di turunkan dari class component, misal this.state = useSatate dll
+// method componentDidMount = useEffect(() => {}, []) // fungsi yang akan di render pertma kali
 const App = () => {
-  const [login, setLogin] = React.useState(false);
+  const { useEffect, useRef } = React;
 
-  // if (login) {
-  //   return (
-  //     <>
-  //       <h1>Berhasil login!</h1>
-  //       <button
-  //         onClick={() => {
-  //           setLogin(false);
-  //         }}
-  //       >
-  //         Logout
-  //       </button>
-  //     </>
-  //   );
-  // }
+  // ref ini untuk manipulasi dom, tanpa render ulang seperti useState()
+  const titleRef = useRef(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      titleRef.current.textContent = "Aplikasi";
+    }, 1000);
+  }, []);
 
   return (
     <>
-      <h1>Login {login ? "Berhasil" : "Dulu"}</h1>
-      <button
-        onClick={() => {
-          setLogin(!login);
-        }}
-      >
-        {login ? "Logout" : "Login"}
-      </button>
+      <h1 ref={titleRef}>Application</h1>
     </>
   );
 };
