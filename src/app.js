@@ -1,44 +1,123 @@
 const root = document.querySelector("#root");
-const { useEffect, useState } = React;
+const { useState } = React;
 
 const App = () => {
-  const url = "https://api.spaceflightnewsapi.net/v3/blogs";
+  const [activity, setActivity] = useState("");
+  const [todos, setTodos] = useState([]);
+  const [edit, setEdit] = useState({});
+  const [alert, setAlert] = useState("");
 
-  const [news, setNews] = useState([]);
-  const [loading, setLoading] = useState(true);
+  function saveTodoHandler(e) {
+    e.preventDefault();
 
-  useEffect(() => {
-    // ! dengan then
-    // const getData = fetch(url)
-    //   .then((res) => res.json())
-    //   .then((body) => console.log(body));
+    if (!activity) {
+      return setAlert("Isi dulu ya!");
+    }
 
-    const getData = async () => {
-      const request = await fetch(url);
-      const response = await request.json();
+    if (edit.id) {
+      const updatedTodo = {
+        ...edit,
+        activity,
+      };
 
-      setNews(response);
-      setLoading(false);
+      const todoIndex = todos.findIndex((todo) => todo.id === edit.id);
+
+      const updatedTodos = [...todos];
+      updatedTodos[todoIndex] = updatedTodo;
+
+      setTodos(updatedTodos);
+
+      return cancelEditHandler();
+    }
+
+    const todo = {
+      id: Date.now(),
+      activity,
+      done: false,
     };
 
-    getData();
-  }, []);
+    setTodos([...todos, todo]);
+    cancelEditHandler();
+  }
 
-  const Card = (props) => {
-    return <div className="box">{props.title}</div>;
-  };
+  function setTodoHandler(e) {
+    setActivity(e.target.value);
+  }
+
+  function deleteTodoHandler(id) {
+    const filteredTodos = todos.filter((todo) => todo.id !== id);
+
+    setTodos(filteredTodos);
+    if (edit.id) cancelEditHandler();
+  }
+
+  function editTodoHandler(todo) {
+    setActivity(todo.activity);
+    setEdit(todo);
+  }
+
+  function cancelEditHandler() {
+    if (edit.id) setEdit({});
+    if (activity) setActivity("");
+    if (alert) setAlert("");
+  }
+
+  function doneTodoHandler(todo) {
+    const updatedTodo = {
+      ...todo,
+      done: !todo.done,
+    };
+
+    const todoIndex = todos.findIndex(
+      (currentTodo) => currentTodo.id === todo.id
+    );
+
+    const updatedTodos = [...todos];
+    updatedTodos[todoIndex] = updatedTodo;
+
+    setTodos(updatedTodos);
+  }
 
   return (
     <>
-      <h1>Data Fetch</h1>
-      {loading && <i>Loading data...</i>}
-      {!loading && (
-        <ul>
-          {news.map((val) => {
-            return <Card key={val.id} title={val.title} />;
-          })}
-        </ul>
-      )}
+      <h1>Simple Todo List</h1>
+      {alert && <p style={{ color: "red", fontStyle: "italic" }}>{alert}</p>}
+      <form onSubmit={saveTodoHandler}>
+        <input
+          type="text"
+          placeholder="nama aktifitas"
+          value={activity}
+          onChange={setTodoHandler}
+        ></input>
+        <button type="submit">{edit.id ? "Update Todo" : "Add Todo"}</button>
+        {edit.id && <button onClick={cancelEditHandler}>Cancel edit</button>}
+      </form>
+      <div>
+        {todos.length > 0 ? (
+          <ul>
+            {todos.map((todo) => {
+              return (
+                <li key={todo.id}>
+                  <input
+                    type="checkbox"
+                    checked={todo.done}
+                    onChange={doneTodoHandler.bind(this, todo)}
+                  ></input>
+                  {todo.done ? <del>{todo.activity}</del> : todo.activity}
+                  <button onClick={editTodoHandler.bind(this, todo)}>
+                    Edit
+                  </button>
+                  <button onClick={deleteTodoHandler.bind(this, todo.id)}>
+                    Hapus
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <p>Tidak ada todo!</p>
+        )}
+      </div>
     </>
   );
 };
