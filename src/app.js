@@ -1,19 +1,25 @@
 const root = document.querySelector("#root");
+const { useRef } = React;
 
 const App = () => {
-  const fruits = ["apel", "pisang", "mangga", "apel"];
+  const namaRef = useRef(null);
+
+  function whenSubmit(ev) {
+    ev.preventDefault();
+
+    const nama = namaRef.current.value;
+
+    console.log(`nama: ${nama}`);
+  }
 
   return (
-    <>
-      <ul>
-        {fruits.map((fruit, idx) => {
-          // key di pakai untuk interl react memanipuasi dom treenya
-          return (
-            <li key={idx}>{fruit.charAt(0).toUpperCase() + fruit.slice(1)}</li>
-          );
-        })}
-      </ul>
-    </>
+    <form onSubmit={whenSubmit}>
+      <div>
+        <label for="name">Name: </label>
+        <input type="text" name="name" id="name" ref={namaRef}></input>
+      </div>
+      <button>Send</button>
+    </form>
   );
 };
 
