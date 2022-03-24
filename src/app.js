@@ -1,22 +1,30 @@
 const root = document.querySelector("#root");
-const { useRef } = React;
+const { useState } = React;
 
 const App = () => {
-  const namaRef = useRef(null);
+  const [name, setName] = useState("");
 
   function whenSubmit(ev) {
     ev.preventDefault();
 
-    const nama = namaRef.current.value;
+    console.log(`Name: ${name}`);
+  }
 
-    console.log(`nama: ${nama}`);
+  function whenChange(ev) {
+    setName(ev.target.value);
   }
 
   return (
     <form onSubmit={whenSubmit}>
       <div>
         <label for="name">Name: </label>
-        <input type="text" name="name" id="name" ref={namaRef}></input>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          value={name}
+          onChange={whenChange}
+        ></input>
       </div>
       <button>Send</button>
     </form>
