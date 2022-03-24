@@ -2,3 +2,13 @@ body {
   background-color: black;
   color: white;
 }
+
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: coral;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  overflow: hidden;
+}

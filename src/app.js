@@ -1,33 +1,45 @@
 const root = document.querySelector("#root");
-const { useState } = React;
+const { useEffect, useState } = React;
 
 const App = () => {
-  const [name, setName] = useState("");
+  const url = "https://api.spaceflightnewsapi.net/v3/blogs";
 
-  function whenSubmit(ev) {
-    ev.preventDefault();
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    console.log(`Name: ${name}`);
-  }
+  useEffect(() => {
+    // ! dengan then
+    // const getData = fetch(url)
+    //   .then((res) => res.json())
+    //   .then((body) => console.log(body));
 
-  function whenChange(ev) {
-    setName(ev.target.value);
-  }
+    const getData = async () => {
+      const request = await fetch(url);
+      const response = await request.json();
+
+      setNews(response);
+      setLoading(false);
+    };
+
+    getData();
+  }, []);
+
+  const Card = (props) => {
+    return <div className="box">{props.title}</div>;
+  };
 
   return (
-    <form onSubmit={whenSubmit}>
-      <div>
-        <label for="name">Name: </label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          value={name}
-          onChange={whenChange}
-        ></input>
-      </div>
-      <button>Send</button>
-    </form>
+    <>
+      <h1>Data Fetch</h1>
+      {loading && <i>Loading data...</i>}
+      {!loading && (
+        <ul>
+          {news.map((val) => {
+            return <Card key={val.id} title={val.title} />;
+          })}
+        </ul>
+      )}
+    </>
   );
 };
 
